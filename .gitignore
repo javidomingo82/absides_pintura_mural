@@ -1,0 +1,6 @@
+.DS_Store
+.noomix/
+node_modules/
+__pycache__/
+test-results/
+playwright-report/
