@@ -321,9 +321,87 @@
         openModel(selection[index + offset].uid);
     });
   }
+  const museumDialog = $("#museum-dialog");
+  const museums = window.MUSEOS || {};
+  function openMuseum(letter, updateHash = true) {
+    const museum = museums[letter];
+    if (!museum || !museumDialog) return;
+    $("#museum-letter").textContent = letter;
+    $("#museum-eyebrow").textContent = `MUSEO · TESIS, APARTADO ${museum.section}`;
+    $("#museum-title").textContent = museum.name;
+    $("#museum-place").textContent = museum.place;
+    const photo = $("#museum-photo");
+    photo.replaceChildren();
+    if (museum.photo) {
+      const img = document.createElement("img");
+      img.src = `./assets/museos/${museum.photo}`;
+      img.alt = `Exterior del ${museum.name}`;
+      img.loading = "lazy";
+      photo.append(img);
+      if (museum.credit) {
+        const cap = document.createElement("figcaption");
+        cap.textContent = `Fotografía: ${museum.credit}`;
+        photo.append(cap);
+      }
+    } else {
+      const ph = document.createElement("div");
+      ph.className = "museum-photo-pending";
+      ph.textContent = "Fotografía del exterior pendiente";
+      photo.append(ph);
+    }
+    $("#museum-text").replaceChildren(
+      ...museum.text.map((paragraph) => {
+        const p = document.createElement("p");
+        p.textContent = paragraph;
+        return p;
+      }),
+    );
+    const plan = $("#museum-plan");
+    plan.replaceChildren();
+    const link = document.createElement("a");
+    link.href = `./assets/museos/${museum.plan}`;
+    link.target = "_blank";
+    link.rel = "noopener";
+    const planImg = document.createElement("img");
+    planImg.src = `./assets/museos/${museum.plan}`;
+    planImg.alt = `Plano del ${museum.name} con la disposición de los ábsides`;
+    planImg.loading = "lazy";
+    link.append(planImg);
+    const planCap = document.createElement("figcaption");
+    planCap.textContent = "Museografía: disposición de los ábsides. Elaboración propia.";
+    plan.append(link, planCap);
+    const card = document.querySelector(`[data-museum-open="${letter}"]`)?.closest(".museum-card");
+    $("#museum-sets").replaceChildren(
+      ...[...(card?.querySelectorAll("li") || [])].map((li) => li.cloneNode(true)),
+    );
+    $("#museum-source").textContent =
+      "Texto resumido del capítulo 7 de la tesis doctoral «Conjuntos absidiales de pintura mural románica desplazada».";
+    if (updateHash) history.replaceState(null, "", `#museo-${museum.slug}`);
+    if (!museumDialog.open) museumDialog.showModal();
+    museumDialog.scrollTop = 0;
+  }
+  document.querySelectorAll("[data-museum-open]").forEach((button) =>
+    button.addEventListener("click", () => openMuseum(button.dataset.museumOpen)),
+  );
+  $("#close-museum")?.addEventListener("click", () => museumDialog.close());
+  museumDialog?.addEventListener("click", (event) => {
+    if (event.target !== museumDialog) return;
+    const b = museumDialog.getBoundingClientRect();
+    if (event.clientX < b.left || event.clientX > b.right || event.clientY < b.top || event.clientY > b.bottom)
+      museumDialog.close();
+  });
+  museumDialog?.addEventListener("close", () => {
+    if (location.hash.startsWith("#museo-"))
+      history.replaceState(null, "", "#museos");
+  });
   const hashCollection = location.hash.slice(1);
   selectCollection(
     Object.hasOwn(collections, hashCollection) ? hashCollection : "absides",
     false,
   );
+  if (hashCollection.startsWith("museo-")) {
+    const slug = hashCollection.slice(6);
+    const letter = Object.keys(museums).find((key) => museums[key].slug === slug);
+    if (letter) openMuseum(letter, false);
+  }
 })();
