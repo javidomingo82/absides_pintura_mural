@@ -1073,7 +1073,7 @@ dialog::backdrop {
   .site-header nav {
     gap: 17px;
   }
-  .site-header nav > a:nth-child(2) {
+  .site-header nav > a:nth-child(3) {
     display: none;
   }
   .external-nav {
@@ -1429,4 +1429,115 @@ dialog::backdrop {
 }
 .hero-map:hover .hero-map-zoom {
   border-color: var(--accent);
+}
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+.hero-buttons .button {
+  margin-top: 0;
+  gap: 22px;
+}
+.button-ghost {
+  border: 1px solid #5c5f53;
+  color: #f1f0e7;
+}
+.button-ghost:hover {
+  border-color: #f1f0e7;
+}
+.museums {
+  padding-bottom: 84px;
+}
+.museum-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+.museum-card {
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 22px 22px 16px;
+  background: #fbfaf6;
+}
+.museum-card header {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+.museum-letter {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #111;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+  font-size: 15px;
+  box-shadow: 0 0 0 2px #fbfaf6, 0 0 0 3px #111;
+}
+.museum-card-pending .museum-letter {
+  background: #8a8a86;
+  box-shadow: 0 0 0 2px #fbfaf6, 0 0 0 3px #8a8a86;
+}
+.museum-card h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.1;
+  margin: 0 0 4px;
+}
+.museum-card header p {
+  margin: 0;
+  font-size: 11px;
+  color: var(--muted);
+}
+.museum-card ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.museum-card li button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+  background: none;
+  color: var(--ink);
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+}
+.museum-card li button > span:last-child {
+  margin-left: auto;
+  color: var(--accent);
+}
+.museum-card li button:hover {
+  color: var(--accent);
+}
+.museum-num {
+  font-size: 10px;
+  color: #0b5a45;
+  font-weight: 600;
+  min-width: 18px;
+}
+.museum-note {
+  font-size: 12px;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+  margin: 0;
+}
+@media (max-width: 540px) {
+  .museums {
+    padding-bottom: 56px;
+  }
 }
