@@ -114,18 +114,61 @@
   const map = $(".hero-map");
   const tip = $(".map-tip");
   if (map && tip) {
-    let active = null;
-    const show = (spot, x, y) => {
-      active?.classList.remove("is-active");
-      active = spot;
-      spot.classList.add("is-active");
-      tip.querySelector("strong").textContent = spot.dataset.label;
-      tip.querySelector("span").textContent = spot.dataset.sub;
-      tip.querySelector("small")?.remove();
-      if (spot.dataset.model) {
-        const hint = document.createElement("small");
-        hint.textContent = "Pulsa para ver el modelo 3D";
-        tip.append(hint);
+    const svgNS = "http://www.w3.org/2000/svg";
+    const spots = [...map.querySelectorAll(".map-hotspots circle")];
+    const byId = Object.fromEntries(spots.map((spot) => [spot.dataset.id, spot]));
+    const links = map.querySelector(".map-links");
+    const holes = map.querySelector(".map-holes");
+    let locked = null;
+    let pointerType = "mouse";
+
+    const related = (spot) => {
+      if (spot.dataset.museum) return [spot, byId[spot.dataset.museum]].filter(Boolean);
+      return [spot, ...spots.filter((s) => s.dataset.museum === spot.dataset.id)];
+    };
+    const line = (from, to) => {
+      const x1 = +from.getAttribute("cx"), y1 = +from.getAttribute("cy");
+      const x2 = +to.getAttribute("cx"), y2 = +to.getAttribute("cy");
+      const len = Math.hypot(x2 - x1, y2 - y1) || 1;
+      const r = 60, dx = ((x2 - x1) / len) * r, dy = ((y2 - y1) / len) * r;
+      for (const cls of ["map-link-halo", "map-link"]) {
+        const l = document.createElementNS(svgNS, "line");
+        l.setAttribute("x1", x1 + dx); l.setAttribute("y1", y1 + dy);
+        l.setAttribute("x2", x2 - dx); l.setAttribute("y2", y2 - dy);
+        l.setAttribute("class", cls);
+        links.append(l);
+      }
+    };
+    const highlight = (spot) => {
+      links.replaceChildren();
+      holes.replaceChildren();
+      spots.forEach((s) => s.classList.remove("is-on"));
+      map.classList.toggle("has-selection", Boolean(spot));
+      if (!spot) return;
+      const group = related(spot);
+      group.forEach((s) => {
+        s.classList.add("is-on");
+        const hole = document.createElementNS(svgNS, "circle");
+        hole.setAttribute("cx", s.getAttribute("cx"));
+        hole.setAttribute("cy", s.getAttribute("cy"));
+        hole.setAttribute("r", 64);
+        hole.setAttribute("fill", "#000");
+        holes.append(hole);
+      });
+      if (spot.dataset.museum) {
+        if (group[1]) line(spot, group[1]);
+      } else group.slice(1).forEach((church) => line(church, spot));
+    };
+    const showTip = (spot, x, y) => {
+      tip.replaceChildren();
+      const title = document.createElement("strong");
+      title.textContent = spot.dataset.label;
+      tip.append(title);
+      const extra = spot.dataset.model ? "Pulsa para ver el modelo 3D" : spot.dataset.sub;
+      if (extra) {
+        const line2 = document.createElement(spot.dataset.model ? "small" : "span");
+        line2.textContent = extra;
+        tip.append(line2);
       }
       tip.hidden = false;
       const box = map.getBoundingClientRect();
@@ -136,32 +179,48 @@
       tip.style.left = `${Math.max(8, left)}px`;
       tip.style.top = `${Math.max(8, top)}px`;
     };
-    const hide = () => {
-      active?.classList.remove("is-active");
-      active = null;
+    const rest = () => {
       tip.hidden = true;
+      highlight(locked);
     };
-    map.addEventListener("pointermove", (event) => {
-      const spot = event.target.closest(".map-hotspots circle");
-      if (spot) show(spot, event.clientX, event.clientY);
-      else if (event.pointerType === "mouse") hide();
-    });
+
     map.addEventListener("pointerdown", (event) => {
-      if (event.pointerType === "mouse") return;
+      pointerType = event.pointerType;
+    });
+    map.addEventListener("pointermove", (event) => {
+      if (event.pointerType !== "mouse") return;
       const spot = event.target.closest(".map-hotspots circle");
-      if (spot) show(spot, event.clientX, event.clientY);
-      else hide();
+      if (spot) {
+        showTip(spot, event.clientX, event.clientY);
+        highlight(spot);
+      } else rest();
     });
     map.addEventListener("pointerleave", (event) => {
-      if (event.pointerType === "mouse") hide();
+      if (event.pointerType === "mouse") rest();
+    });
+    map.addEventListener("click", (event) => {
+      const spot = event.target.closest(".map-hotspots circle");
+      if (!spot) {
+        if (event.target.closest(".hero-map-zoom")) return;
+        locked = null;
+        rest();
+        return;
+      }
+      const firstTouch = pointerType !== "mouse" && locked !== spot;
+      locked = spot;
+      highlight(spot);
+      showTip(spot, event.clientX, event.clientY);
+      // En pantallas táctiles, el primer toque sólo selecciona; el segundo abre el modelo
+      if (firstTouch) event.stopPropagation();
     });
     map.addEventListener("focusin", (event) => {
       const spot = event.target.closest(".map-hotspots circle");
       if (!spot) return;
       const r = spot.getBoundingClientRect();
-      show(spot, r.right, r.top);
+      showTip(spot, r.right, r.top);
+      highlight(spot);
     });
-    map.addEventListener("focusout", hide);
+    map.addEventListener("focusout", rest);
     map.addEventListener("keydown", (event) => {
       const spot = event.target.closest(".map-hotspots circle[data-model]");
       if (spot && (event.key === "Enter" || event.key === " ")) {

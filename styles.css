@@ -1555,10 +1555,31 @@ dialog::backdrop {
 .map-hotspots circle[data-model] {
   cursor: pointer;
 }
-.map-hotspots circle:hover,
 .map-hotspots circle:focus-visible,
-.map-hotspots circle.is-active {
+.map-hotspots circle.is-on {
   stroke: #e2a33a;
+  stroke-width: 14;
+}
+.map-dim {
+  fill: #fff;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+.has-selection .map-dim {
+  opacity: 0.35;
+}
+.map-link {
+  stroke: #0b5a45;
+  stroke-width: 14;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+.map-link-halo {
+  stroke: #fff;
+  stroke-width: 30;
+  stroke-linecap: round;
+  pointer-events: none;
 }
 .map-tip {
   position: absolute;
