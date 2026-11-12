@@ -1537,3 +1537,65 @@ dialog::backdrop {
     padding-bottom: 56px;
   }
 }
+.map-hotspots {
+  position: absolute;
+  inset: 8px;
+  width: calc(100% - 16px);
+  height: calc(100% - 16px);
+  z-index: 2;
+}
+.map-hotspots circle {
+  fill: transparent;
+  stroke: transparent;
+  stroke-width: 10;
+  cursor: help;
+  outline: none;
+  transition: stroke 0.15s;
+}
+.map-hotspots circle[data-model] {
+  cursor: pointer;
+}
+.map-hotspots circle:hover,
+.map-hotspots circle:focus-visible,
+.map-hotspots circle.is-active {
+  stroke: #e2a33a;
+}
+.map-tip {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+  max-width: 300px;
+  background: #111;
+  color: #f5f2eb;
+  padding: 9px 12px;
+  border-radius: 3px;
+  font-size: 12px;
+  line-height: 1.35;
+  box-shadow: 0 6px 18px #0004;
+}
+.map-tip strong {
+  display: block;
+  font-weight: 600;
+}
+.map-tip span {
+  display: block;
+  color: #c4c7b8;
+  font-size: 11px;
+  margin-top: 2px;
+}
+.map-tip small {
+  display: block;
+  color: #a5ae82;
+  font-size: 10px;
+  margin-top: 4px;
+}
+@media (max-width: 540px) {
+  .map-hotspots {
+    inset: 6px;
+    width: calc(100% - 12px);
+    height: calc(100% - 12px);
+  }
+  .map-tip {
+    max-width: 230px;
+  }
+}

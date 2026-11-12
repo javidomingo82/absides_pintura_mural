@@ -111,6 +111,65 @@
         selectCollection(tab.dataset.collection),
       ),
     );
+  const map = $(".hero-map");
+  const tip = $(".map-tip");
+  if (map && tip) {
+    let active = null;
+    const show = (spot, x, y) => {
+      active?.classList.remove("is-active");
+      active = spot;
+      spot.classList.add("is-active");
+      tip.querySelector("strong").textContent = spot.dataset.label;
+      tip.querySelector("span").textContent = spot.dataset.sub;
+      tip.querySelector("small")?.remove();
+      if (spot.dataset.model) {
+        const hint = document.createElement("small");
+        hint.textContent = "Pulsa para ver el modelo 3D";
+        tip.append(hint);
+      }
+      tip.hidden = false;
+      const box = map.getBoundingClientRect();
+      let left = x - box.left + 16;
+      let top = y - box.top + 16;
+      if (left + tip.offsetWidth > box.width - 8) left = x - box.left - tip.offsetWidth - 16;
+      if (top + tip.offsetHeight > box.height - 8) top = y - box.top - tip.offsetHeight - 16;
+      tip.style.left = `${Math.max(8, left)}px`;
+      tip.style.top = `${Math.max(8, top)}px`;
+    };
+    const hide = () => {
+      active?.classList.remove("is-active");
+      active = null;
+      tip.hidden = true;
+    };
+    map.addEventListener("pointermove", (event) => {
+      const spot = event.target.closest(".map-hotspots circle");
+      if (spot) show(spot, event.clientX, event.clientY);
+      else if (event.pointerType === "mouse") hide();
+    });
+    map.addEventListener("pointerdown", (event) => {
+      if (event.pointerType === "mouse") return;
+      const spot = event.target.closest(".map-hotspots circle");
+      if (spot) show(spot, event.clientX, event.clientY);
+      else hide();
+    });
+    map.addEventListener("pointerleave", (event) => {
+      if (event.pointerType === "mouse") hide();
+    });
+    map.addEventListener("focusin", (event) => {
+      const spot = event.target.closest(".map-hotspots circle");
+      if (!spot) return;
+      const r = spot.getBoundingClientRect();
+      show(spot, r.right, r.top);
+    });
+    map.addEventListener("focusout", hide);
+    map.addEventListener("keydown", (event) => {
+      const spot = event.target.closest(".map-hotspots circle[data-model]");
+      if (spot && (event.key === "Enter" || event.key === " ")) {
+        event.preventDefault();
+        openModel(spot.dataset.model);
+      }
+    });
+  }
   $("#search").addEventListener("input", () => {
     visible = pageSize;
     render();
