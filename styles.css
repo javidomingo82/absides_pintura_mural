@@ -179,7 +179,7 @@ em {
 }
 .hero h1 {
   font-family: var(--serif);
-  font-size: clamp(52px, 4.6vw, 74px);
+  font-size: clamp(52px, 4.6vw, 66px);
   line-height: 0.98;
   letter-spacing: -2px;
   margin: 35px 0 24px;
@@ -860,11 +860,7 @@ dialog::backdrop {
 .collection-tab.active .tab-number {
   color: #ccd1bc;
 }
-@media (min-width: 1600px) {
-  .hero h1 {
-    font-size: 98px;
-  }
-}
+
 @media (max-width: 1100px) {
   .wrap {
     width: calc(100% - 64px);

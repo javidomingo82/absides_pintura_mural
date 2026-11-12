@@ -111,9 +111,6 @@
         selectCollection(tab.dataset.collection),
       ),
     );
-  document.querySelectorAll("[data-goto]").forEach((link) =>
-    link.addEventListener("click", () => selectCollection(link.dataset.goto)),
-  );
   $("#search").addEventListener("input", () => {
     visible = pageSize;
     render();
