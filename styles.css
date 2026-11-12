@@ -1557,8 +1557,8 @@ dialog::backdrop {
 }
 .map-hotspots circle:focus-visible,
 .map-hotspots circle.is-on {
-  stroke: #d0021b;
-  stroke-width: 14;
+  stroke: #b5382c;
+  stroke-width: 10;
 }
 .map-dim {
   fill: #fff;
@@ -1570,7 +1570,7 @@ dialog::backdrop {
   opacity: 0.35;
 }
 .map-link {
-  stroke: #d0021b;
+  stroke: #b5382c;
   stroke-width: 14;
   stroke-linecap: round;
   pointer-events: none;
