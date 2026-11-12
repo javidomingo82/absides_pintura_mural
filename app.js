@@ -164,12 +164,14 @@
       const title = document.createElement("strong");
       title.textContent = spot.dataset.label;
       tip.append(title);
-      const extra = spot.dataset.model ? "Pulsa para ver el modelo 3D" : spot.dataset.sub;
-      if (extra) {
-        const line2 = document.createElement(spot.dataset.model ? "small" : "span");
-        line2.textContent = extra;
-        tip.append(line2);
-      }
+      const add = (tag, text) => {
+        const el = document.createElement(tag);
+        el.textContent = text;
+        tip.append(el);
+      };
+      if (spot.dataset.km) add("span", `Distancia al museo: ${spot.dataset.km} km`);
+      else if (!spot.dataset.museum && spot.dataset.sub) add("span", spot.dataset.sub);
+      if (spot.dataset.model) add("small", "Pulsa para ver el modelo 3D");
       tip.hidden = false;
       const box = map.getBoundingClientRect();
       let left = x - box.left + 16;
