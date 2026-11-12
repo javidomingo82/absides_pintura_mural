@@ -10,7 +10,7 @@
     />
     <meta
       property="og:title"
-      content="Ábsides · Pintura mural románica en 3D"
+      content="Conjuntos absidiales de pintura mural románica desplazada · Repositorio 3D"
     />
     <meta
       property="og:description"
@@ -19,10 +19,10 @@
     <meta property="og:type" content="website" />
     <meta
       property="og:image"
-      content="https://javidomingo82.github.io/absides_pintura_mural/assets/hero.jpg"
+      content="https://javidomingo82.github.io/absides_pintura_mural/assets/mapa-hero.jpg"
     />
-    <title>Ábsides · Pintura mural románica en 3D</title>
-    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <title>Conjuntos absidiales de pintura mural románica desplazada · Repositorio 3D</title>
+    <link rel="icon" href="./assets/favicon.png" type="image/png" />
     <link rel="stylesheet" href="./styles.css" />
     <script src="./catalog.js" defer></script>
     <script src="./app.js" defer></script>
@@ -30,19 +30,15 @@
   <body>
     <a class="skip-link" href="#colecciones">Saltar a las colecciones</a>
     <header class="site-header wrap">
-      <a class="brand" href="./" aria-label="Ábsides, inicio"
-        ><svg viewBox="0 0 40 44" aria-hidden="true">
-          <path
-            d="M4 40V20a16 16 0 0 1 32 0v20M12 40V20a8 8 0 0 1 16 0v20M20 12v28"
-          /></svg
-        ><span
-          >ábsides<span class="brand-sub"
-            >PINTURA MURAL · ARCHIVO 3D</span
+      <a class="brand" href="./" aria-label="Conjuntos absidiales de pintura mural románica desplazada, inicio"
+        ><img class="brand-logo" src="./assets/logo.png" alt="" width="143" height="240" /><span
+          ><span class="brand-title">Conjuntos absidiales de pintura mural <br class="desktop-break" />románica desplazada</span><span class="brand-sub"
+            >REPOSITORIO 3D</span
           ></span
         ></a
       >
       <nav aria-label="Navegación principal">
-        <a href="#colecciones">Colecciones</a><a href="#proyecto">El proyecto</a
+        <a href="#colecciones">Colecciones</a><a href="#museos">Museos</a><a href="#proyecto">El proyecto</a
         ><a
           class="external-nav"
           href="https://sketchfab.com/jdomingoballestin"
@@ -56,7 +52,7 @@
       <section class="hero wrap" aria-labelledby="hero-title">
         <div class="hero-copy">
           <p class="eyebrow">
-            <span class="live-dot"></span> PATRIMONIO ROMÁNICO EN TRES
+            <span class="live-dot"></span> PINTURA ROMÁNICA EN TRES
             DIMENSIONES
           </p>
           <h1 id="hero-title">Otra mirada<br />al <em>románico.</em></h1>
@@ -65,9 +61,13 @@
             redescubre su relación<br class="desktop-break" />
             con la arquitectura de origen.
           </p>
-          <a class="button button-light" href="#colecciones"
-            >Explorar las colecciones <span aria-hidden="true">↗</span></a
-          >
+          <div class="hero-buttons">
+            <a class="button button-light" href="#colecciones" data-goto="absides"
+              >Ábsides <span aria-hidden="true">↗</span></a
+            ><a class="button button-ghost" href="#colecciones" data-goto="conjuntos"
+              >Ábsides + Arquitectura <span aria-hidden="true">↗</span></a
+            >
+          </div>
           <div class="hero-stats">
             <span><b>50</b> modelos 3D</span><span><b>02</b> colecciones</span
             ><span class="hero-stat-note"
@@ -75,35 +75,28 @@
             >
           </div>
         </div>
-        <button
-          class="hero-art"
-          data-model="a9b76579120f4558895b7e78b123d909"
-          aria-label="Explorar el ábside central de Sant Climent de Taüll en 3D"
+        <a
+          class="hero-art hero-map"
+          href="./assets/mapa-conjuntos.jpg"
+          target="_blank"
+          rel="noopener"
+          aria-label="Ampliar el mapa de conjuntos absidiales desplazados"
         >
           <img
-            src="./assets/hero.jpg"
-            alt="Modelo digital de las pinturas del ábside central de Sant Climent de Taüll"
-            width="1920"
-            height="1080"
+            src="./assets/mapa-hero.jpg"
+            alt="Mapa de los conjuntos absidiales de pintura mural románica desplazada: lugares de origen en el Pirineo y museos de destino en España y Estados Unidos"
+            width="1600"
+            height="1078"
             fetchpriority="high"
           />
-          <span class="hero-art-hint"
-            ><span class="orbit-icon" aria-hidden="true">↻</span> EXPLORAR EN
-            3D</span
+          <span class="hero-map-zoom"
+            >AMPLIAR MAPA <span aria-hidden="true">↗</span></span
           >
-          <span class="hero-caption"
-            ><span>Sant Climent de Taüll</span
-            ><span>ÁBSIDE CENTRAL <span aria-hidden="true">↗</span></span></span
-          >
-        </button>
+        </a>
         <span class="hero-edition" aria-hidden="true"
           >ARCHIVO DIGITAL / 01</span
         >
       </section>
-      <div class="intro-strip wrap">
-        <p>Acércate. Gira. Descubre cada detalle.</p>
-        <span>UNA VISITA SIN DISTANCIAS <span aria-hidden="true">↓</span></span>
-      </div>
       <section
         class="collections wrap"
         id="colecciones"
@@ -209,6 +202,59 @@
           </p></noscript
         >
       </section>
+      <section class="museums wrap" id="museos" aria-labelledby="museums-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">LOS MUSEOS</p>
+            <h2 id="museums-title">Dónde están <em>hoy.</em></h2>
+          </div>
+          <p>
+            Nueve instituciones de España y Estados Unidos.<br />Las letras corresponden a las del mapa.
+          </p>
+        </div>
+        <div class="museum-grid">
+          <article class="museum-card">
+            <header><span class="museum-letter">A</span><div><h3>Museu Nacional d&#x27;Art de Catalunya (MNAC)</h3><p>Barcelona · 14 conjuntos</p></div></header>
+            <ul><li><button data-model="2d24c02e8b2c4dc2bcac7280f29f94ce"><span class="museum-num">01</span>Sant Pere<span aria-hidden="true">↗</span></button></li><li><button data-model="ba502fff1d9246ff826d89e18f68777c"><span class="museum-num">02</span>Santa Maria d&#x27;Àneu<span aria-hidden="true">↗</span></button></li><li><button data-model="b65f035409a049c1bb1da87304c00831"><span class="museum-num">03</span>Burgal<span aria-hidden="true">↗</span></button></li><li><button data-model="503c890295c7420ea2ee5f4dced58d24"><span class="museum-num">04</span>Santa María de Mur (absidiolo)<span aria-hidden="true">↗</span></button></li><li><button data-model="16d7425ea2a548d4bdded27c69bf09d9"><span class="museum-num">05</span>Marmellar<span aria-hidden="true">↗</span></button></li><li><button data-model="462412f6581841368bbd9eedaed4a8a5"><span class="museum-num">06</span>Esterri de Cardós<span aria-hidden="true">↗</span></button></li><li><button data-model="81cbcd89c0ed4a228a18adae69f3c9af"><span class="museum-num">07</span>Ginestarre<span aria-hidden="true">↗</span></button></li><li><button data-model="a9b76579120f4558895b7e78b123d909"><span class="museum-num">08</span>Sant Climent de Taüll (ábside central)<span aria-hidden="true">↗</span></button></li><li><button data-model="c5828128193749d7959338594c2f3d16"><span class="museum-num">09</span>Sant Climent de Taüll (absidiolo)<span aria-hidden="true">↗</span></button></li><li><button data-model="b36bce45f0854d3abdfaefef53925221"><span class="museum-num">10</span>Santa María de Taüll<span aria-hidden="true">↗</span></button></li><li><button data-model="e99b78d732244b4a8c72dbdd346bf30a"><span class="museum-num">11</span>Estaon<span aria-hidden="true">↗</span></button></li><li><button data-model="85676385379f48448c7f8bbc91b4f6f9"><span class="museum-num">12</span>Engolasters<span aria-hidden="true">↗</span></button></li><li><button data-model="3f8769d594a44fdb830f712dfb5973e5"><span class="museum-num">13</span>Sant Esteve d'Andorra (absidiolo)<span aria-hidden="true">↗</span></button></li><li><button data-model="47816532b02048f08eb357f4d6466880"><span class="museum-num">14</span>Toses<span aria-hidden="true">↗</span></button></li></ul>
+          </article>
+          <article class="museum-card">
+            <header><span class="museum-letter">B</span><div><h3>Museo Diocesano de Jaca</h3><p>Jaca · 3 conjuntos</p></div></header>
+            <ul><li><button data-model="f5cdcb9a3e444ac9ad4b5501f43a700b"><span class="museum-num">15</span>Ruesta<span aria-hidden="true">↗</span></button></li><li><button data-model="bab7c4fb54a54d898bf80f02acbf8096"><span class="museum-num">16</span>Osia<span aria-hidden="true">↗</span></button></li><li><button data-model="0041081b66974ca48ad710a2bc0e98c9"><span class="museum-num">17</span>Bagüés<span aria-hidden="true">↗</span></button></li></ul>
+          </article>
+          <article class="museum-card">
+            <header><span class="museum-letter">C</span><div><h3>Museo Diocesano de Barbastro-Monzón</h3><p>Barbastro · 2 conjuntos</p></div></header>
+            <ul><li><button data-model="af7ed96f2f8b4a61b64c025fe795485f"><span class="museum-num">18</span>Vió<span aria-hidden="true">↗</span></button></li><li><button data-model="a2cdea9dd38b455ab5841c47da36cf51"><span class="museum-num">19</span>Villamana<span aria-hidden="true">↗</span></button></li></ul>
+          </article>
+          <article class="museum-card">
+            <header><span class="museum-letter">D</span><div><h3>Museu d&#x27;Art Medieval de Vic</h3><p>Vic · 2 conjuntos</p></div></header>
+            <ul><li><button data-model="f0e19a68e8f64e5081cbc0c71fbe04c9"><span class="museum-num">20</span>El Brull<span aria-hidden="true">↗</span></button></li><li><button data-model="91a8408e01344ea58983b023064eb0a3"><span class="museum-num">21</span>Sant Sadurní<span aria-hidden="true">↗</span></button></li></ul>
+          </article>
+          <article class="museum-card">
+            <header><span class="museum-letter">E</span><div><h3>Museu Diocesà de Barcelona</h3><p>Barcelona · 1 conjunto</p></div></header>
+            <ul><li><button data-model="8b48ac5d6ebd456b8dda169da6926aef"><span class="museum-num">22</span>Polinyà<span aria-hidden="true">↗</span></button></li></ul>
+          </article>
+          <article class="museum-card">
+            <header><span class="museum-letter">F</span><div><h3>Museu d&#x27;Art de Girona</h3><p>Girona · 1 conjunto</p></div></header>
+            <ul><li><button data-model="fab3e6a01230447282bdab6fa2704e1f"><span class="museum-num">23</span>Pedrinyà<span aria-hidden="true">↗</span></button></li></ul>
+          </article>
+          <article class="museum-card">
+            <header><span class="museum-letter">G</span><div><h3>Museu Diocesà i Comarcal de Solsona</h3><p>Solsona · 1 conjunto</p></div></header>
+            <ul><li><button data-model="3952f67d216b4f618b798dd3d6bb772b"><span class="museum-num">24</span>Rus<span aria-hidden="true">↗</span></button></li></ul>
+          </article>
+          <article class="museum-card">
+            <header><span class="museum-letter">H</span><div><h3>Museum of Fine Arts</h3><p>Boston (EE. UU.) · 1 conjunto</p></div></header>
+            <ul><li><button data-model="6a9b6efbafbb4b5cb84f714630bbcd79"><span class="museum-num">25</span>Santa María de Mur (ábside central)<span aria-hidden="true">↗</span></button></li></ul>
+          </article>
+          <article class="museum-card">
+            <header><span class="museum-letter">I</span><div><h3>The Cloisters, The Metropolitan Museum of Art</h3><p>Nueva York (EE. UU.) · 1 conjunto</p></div></header>
+            <ul><li><button data-model="c25af0812aa64081aea97599bab4d19c"><span class="museum-num">26</span>Tredòs<span aria-hidden="true">↗</span></button></li></ul>
+          </article>
+          <article class="museum-card museum-card-pending">
+            <header><span class="museum-letter">J</span><div><h3>Museu Catedral de la Seu d'Urgell</h3><p>La Seu d'Urgell · 1 conjunto</p></div></header>
+            <p class="museum-note">27 Sant Romà d'Aineto: desmontado y pendiente de nueva instalación; sin modelo 3D.</p>
+          </article>
+        </div>
+      </section>
       <section class="project" id="proyecto" aria-labelledby="project-title">
         <div class="wrap project-inner">
           <div>
@@ -246,7 +292,7 @@
     </main>
     <footer class="site-footer wrap">
       <a class="footer-brand" href="#"
-        >ábsides<span aria-hidden="true">↗</span></a
+        >Conjuntos absidiales de pintura mural románica desplazada<span aria-hidden="true">↗</span></a
       >
       <p>
         Pintura mural románica desplazada.<br />Un archivo para seguir mirando.

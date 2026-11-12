@@ -27,7 +27,6 @@ COLLECTIONS = {
         "intro": "La pintura vuelve a su contexto: explora los conjuntos murales vinculados con la planta arquitectónica de sus edificios de origen.",
     },
 }
-HERO_UID = "a9b76579120f4558895b7e78b123d909"
 
 
 def fetch(url):
@@ -76,8 +75,6 @@ def main():
             path = f"assets/thumbnails/{item['uid']}.jpg"
             models.append({"uid": item["uid"], "collection": key, "name": item["name"], "title": title, "label": label, "number": int(label.split('/')[0]) if match else 999, "url": item["viewerUrl"], "thumbnail": f"./{path}", "thumbnailSource": thumbnail["url"]})
             downloads.append((path, thumbnail["url"]))
-            if item["uid"] == HERO_UID:
-                downloads.append(("assets/hero.jpg", max(item["thumbnails"]["images"], key=lambda image: image["width"])["url"]))
     with tempfile.TemporaryDirectory(prefix="absides-catalog-") as temporary:
         staging = Path(temporary)
 
