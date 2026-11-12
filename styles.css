@@ -102,17 +102,18 @@ em {
   align-items: center;
   gap: 13px;
 }
-.brand svg {
-  height: 43px;
-  width: 35px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.5;
+.brand-logo {
+  height: 64px;
+  width: auto;
+  flex: none;
 }
 .brand > span {
   font-family: var(--serif);
-  font-size: 39px;
-  line-height: 1;
+  font-size: 25px;
+  line-height: 1.05;
+}
+.brand-title {
+  display: block;
 }
 .brand-sub {
   display: block;
@@ -324,6 +325,28 @@ em {
 .hero-caption > span:last-child span {
   margin-left: 12px;
   font-size: 17px;
+}
+.hero-map {
+  background: #fff;
+  display: block;
+}
+.hero-map:before {
+  display: none;
+}
+.hero-map img {
+  object-fit: contain;
+  opacity: 1;
+  padding: 18px 18px 58px;
+}
+.hero-map:hover img {
+  transform: none;
+}
+.hero-map .hero-caption {
+  left: 28px;
+  color: var(--ink);
+}
+.hero-map .hero-caption > span:last-child span {
+  color: var(--accent);
 }
 .hero-edition {
   position: absolute;
@@ -700,7 +723,9 @@ h2 {
 }
 .footer-brand {
   font-family: var(--serif);
-  font-size: 41px;
+  font-size: 26px;
+  line-height: 1.15;
+  max-width: 460px;
   display: flex;
   align-items: center;
   gap: 25px;
@@ -900,14 +925,17 @@ dialog::backdrop {
     padding-left: 8px;
   }
   .brand > span {
-    font-size: 34px;
+    font-size: 17px;
+  }
+  .brand-title br {
+    display: none;
   }
   .brand-sub {
     font-size: 6px;
     letter-spacing: 1.3px;
   }
-  .brand svg {
-    width: 28px;
+  .brand-logo {
+    height: 46px;
   }
   .hero {
     grid-template-columns: 1fr 1fr;
@@ -1059,15 +1087,14 @@ dialog::backdrop {
     gap: 9px;
   }
   .brand > span {
-    font-size: 32px;
+    font-size: 14px;
   }
   .brand-sub {
     font-size: 5px;
     letter-spacing: 1.1px;
   }
-  .brand svg {
-    width: 26px;
-    height: 36px;
+  .brand-logo {
+    height: 40px;
   }
   .hero {
     display: flex;
@@ -1313,7 +1340,7 @@ dialog::backdrop {
     gap: 16px 25px;
   }
   .footer-brand {
-    font-size: 37px;
+    font-size: 21px;
   }
   .site-footer p {
     font-size: 9px;
@@ -1359,5 +1386,27 @@ dialog::backdrop {
   *:after {
     transition: none !important;
     animation: none !important;
+  }
+}
+.hero-map ~ .hero-edition {
+  display: none;
+}
+@media (max-width: 1100px) {
+  .hero-map img {
+    object-fit: contain;
+  }
+}
+@media (max-width: 540px) {
+  .hero-map {
+    height: auto;
+  }
+  .hero-map img {
+    height: auto;
+    padding: 12px 12px 50px;
+  }
+  .hero-map .hero-caption {
+    left: 16px;
+    right: 16px;
+    bottom: 18px;
   }
 }
