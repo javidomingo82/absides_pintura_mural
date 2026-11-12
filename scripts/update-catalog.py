@@ -70,6 +70,8 @@ def main():
                 raise ValueError("Invalid model identifier")
             match = re.match(r"(\d+(?:/\d+)?)\s+(.+)", item["name"])
             label, name = (match.group(1), match.group(2)) if match else ("—", item["name"])
+            # Criterio: nombres de iglesias catalanas en catalán («Santa Maria», sin tilde)
+            item["name"] = item["name"].replace("Santa María", "Santa Maria")
             title = re.sub(r"^(?:Ábside(?: central| meridional)?|Absidiolo(?: meridional)?|Conjunto)\s+(?:de |del )?", "", name, flags=re.I)
             thumbnail = min(item["thumbnails"]["images"], key=lambda image: abs(image["width"] - 720))
             path = f"assets/thumbnails/{item['uid']}.jpg"
