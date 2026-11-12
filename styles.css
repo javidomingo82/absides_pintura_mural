@@ -1620,3 +1620,47 @@ dialog::backdrop {
     max-width: 230px;
   }
 }
+.map-labels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+.map-labels span {
+  position: absolute;
+  transform: translateY(-50%);
+  background: #fffffff0;
+  color: var(--ink);
+  border-left: 2px solid #b5382c;
+  padding: 2px 6px;
+  font-size: 10.5px;
+  line-height: 1.25;
+  white-space: nowrap;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px #0002;
+}
+.map-labels span.is-left {
+  border-left: 0;
+  border-right: 2px solid #b5382c;
+}
+@media (max-width: 540px) {
+  .map-labels span {
+    font-size: 9px;
+    padding: 1px 4px;
+  }
+}
+.map-tip ul {
+  list-style: none;
+  margin: 7px 0 0;
+  padding: 6px 0 0;
+  border-top: 1px solid #ffffff26;
+}
+.map-tip li {
+  font-size: 11px;
+  line-height: 1.5;
+  color: #e5e6d8;
+  white-space: nowrap;
+}
+.map-tip:has(ul) {
+  max-width: none;
+}

@@ -118,6 +118,9 @@
     const spots = [...map.querySelectorAll(".map-hotspots circle")];
     const byId = Object.fromEntries(spots.map((spot) => [spot.dataset.id, spot]));
     const links = map.querySelector(".map-links");
+    const labels = document.createElement("div");
+    labels.className = "map-labels";
+    map.append(labels);
     const holes = map.querySelector(".map-holes");
     let locked = null;
     let pointerType = "mouse";
@@ -142,6 +145,7 @@
     const highlight = (spot) => {
       links.replaceChildren();
       holes.replaceChildren();
+      labels.replaceChildren();
       spots.forEach((s) => s.classList.remove("is-on"));
       map.classList.toggle("has-selection", Boolean(spot));
       if (!spot) return;
@@ -158,6 +162,20 @@
       if (spot.dataset.museum) {
         if (group[1]) line(spot, group[1]);
       } else group.slice(1).forEach((church) => line(church, spot));
+      const box = map.getBoundingClientRect();
+      if (!spot.dataset.museum) return;
+      group.slice(1).forEach((s) => {
+        const r = s.getBoundingClientRect();
+        const label = document.createElement("span");
+        label.textContent = s.dataset.label;
+        const right = r.right - box.left + 4;
+        label.style.top = `${r.top - box.top + r.height / 2}px`;
+        if (right > box.width * 0.72) {
+          label.classList.add("is-left");
+          label.style.right = `${box.right - r.left + 4}px`;
+        } else label.style.left = `${right}px`;
+        labels.append(label);
+      });
     };
     const showTip = (spot, x, y) => {
       tip.replaceChildren();
@@ -169,11 +187,33 @@
         el.textContent = text;
         tip.append(el);
       };
-      if (spot.dataset.km) add("span", `Distancia al museo: ${spot.dataset.km} km`);
+      if (spot.dataset.km) add("span", `${spot.dataset.km} km`);
       else if (!spot.dataset.museum && spot.dataset.sub) add("span", spot.dataset.sub);
+      if (!spot.dataset.museum) {
+        const churches = spots
+          .filter((s) => s.dataset.museum === spot.dataset.id)
+          .sort((x, y) => x.dataset.id.localeCompare(y.dataset.id));
+        if (churches.length) {
+          const list = document.createElement("ul");
+          churches.forEach((s) => {
+            const li = document.createElement("li");
+            li.textContent = s.dataset.km
+              ? `${s.dataset.label} · ${s.dataset.km} km`
+              : s.dataset.label;
+            list.append(li);
+          });
+          tip.append(list);
+        }
+      }
       if (spot.dataset.model) add("small", "Pulsa para ver el modelo 3D");
       tip.hidden = false;
       const box = map.getBoundingClientRect();
+      if (!spot.dataset.museum) {
+        // Museos: la lista va en la esquina inferior izquierda para no tapar las iglesias
+        tip.style.left = "16px";
+        tip.style.top = `${Math.max(8, box.height - tip.offsetHeight - 16)}px`;
+        return;
+      }
       let left = x - box.left + 16;
       let top = y - box.top + 16;
       if (left + tip.offsetWidth > box.width - 8) left = x - box.left - tip.offsetWidth - 16;
